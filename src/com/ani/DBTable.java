@@ -1,16 +1,18 @@
 package com.ani;
 
-import java.io.*;
-import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class DBTable {
-    List<DBRecord> table;
+    ChunkList<DBRecord> table;
 
     public DBTable(){
-        table = new ArrayList<>();
+        table = new ChunkList<>();
     }
 
     public void read(String filename) throws IOException {
@@ -45,15 +47,21 @@ public class DBTable {
     }
 
     public void deleteSelected(){
-        table = table.stream()
-                .filter(record -> !record.isSelected())
-                .collect(Collectors.toList());
+        for (Iterator iterator = table.iterator(); iterator.hasNext(); ) {
+            DBRecord record = (DBRecord) iterator.next();
+            if(record.isSelected()) {
+                iterator.remove();
+            }
+        }
     }
 
     public void deleteUnselected(){
-        table = table.stream()
-                .filter(DBRecord::isSelected)
-                .collect(Collectors.toList());
+        for (Iterator iterator = table.iterator(); iterator.hasNext(); ) {
+            DBRecord record = (DBRecord) iterator.next();
+            if(!record.isSelected()) {
+                iterator.remove();
+            }
+        }
     }
 
     public void selectOr(String input){

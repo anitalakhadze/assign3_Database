@@ -5,13 +5,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class DBRecord {
-    List<DBBinding> bindings;
+    ChunkList<DBBinding> bindings;
     boolean selected;
 
     public DBRecord(String line){
-        bindings = Arrays.stream(line.split(","))
-                .map(DBBinding::new)
-                .collect(Collectors.toList());
+//        bindings = Arrays.stream(line.split(","))
+//                .map(DBBinding::new)
+//                .collect(Collectors.toList());
+        bindings = new ChunkList<>();
+        Arrays.stream(line.split(",")).map(DBBinding::new).forEach(b -> bindings.add(b));
         selected = false;
     }
 
@@ -23,7 +25,7 @@ public class DBRecord {
         this.selected = selected;
     }
 
-    public List<DBBinding> getBindings(){
+    public ChunkList<DBBinding> getBindings(){
         return bindings;
     }
 

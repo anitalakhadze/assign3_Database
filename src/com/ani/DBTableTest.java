@@ -1,6 +1,5 @@
 package com.ani;
 
-import com.ani.DBTable;
 import org.junit.Before;
 import org.junit.Test;
 

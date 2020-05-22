@@ -33,4 +33,11 @@ public class DBBinding {
                 && (this.value.toLowerCase().contains(other.value.toLowerCase())));
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof DBBinding)) return false;
+        return ((key.equals(((DBBinding) obj).key)
+                && (value.equals(((DBBinding) obj).value))));
+    }
 }
